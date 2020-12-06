@@ -2,16 +2,20 @@ const fs = require('fs');
 
 const baseDir = process.env.PWD;
 const pathsToInput = 'input.txt';
-const validate = require('./validate');
+const validateCharacterCount = require('./validateCharacterCount');
+const validateCharacterPosition = require('./validateCharacterPosition');
 
 let policiesAndPasswords = [];
 
 policiesAndPasswords = fs.readFileSync(`${baseDir}/${pathsToInput}`, 'utf8').split('\n');
 
-const validPolicies = policiesAndPasswords.filter(policyAndPassword => {
-    return validate(policyAndPassword);
+const validCharacterCountPolicies = policiesAndPasswords.filter(policyAndPassword => {
+    return validateCharacterCount(policyAndPassword);
 });
 
-console.log(validPolicies.length)
+const validCharacterPositionPolicies = policiesAndPasswords.filter(policyAndPassword => {
+    return validateCharacterPosition(policyAndPassword);
+});
 
+console.log(validCharacterPositionPolicies.length);
 
