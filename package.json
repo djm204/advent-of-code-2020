@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/djm204/advent-of-code-2020#readme",
   "dependencies": {
-    "isomorphic-fetch": "^3.0.0"
+    "isomorphic-fetch": "^3.0.0",
+    "prettier": "^2.2.1"
   }
 }
