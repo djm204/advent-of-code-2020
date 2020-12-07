@@ -1,5 +1,5 @@
 const inputParser = require("../helpers/getInput");
-const inputLines = inputParser.getInputFromFile("input.txt");
+const inputLines = inputParser.getInputFromFile("input.txt", "\n");
 const ROW_LENGTH = inputLines[0].length;
 
 const skiRoutes = [

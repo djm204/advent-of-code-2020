@@ -9,9 +9,9 @@ const getInputFromServer = async (endpoint) => {
   return result.statusText();
 };
 
-const getInputFromFile = (pathToFile) => {
+const getInputFromFile = (pathToFile, delimiter) => {
   const baseDir = process.env.PWD;
-  return fs.readFileSync(`${baseDir}/${pathToFile}`, "utf8").split("\n");
+  return fs.readFileSync(`${baseDir}/${pathToFile}`, "utf8").split(delimiter);
 };
 
 module.exports = {
