@@ -1,39 +1,71 @@
-const { start } = require('repl');
-const inputParser = require('../helpers/getInput');
-const inputLines = inputParser.getInputFromFile('input.txt');
+const inputParser = require("../helpers/getInput");
+const inputLines = inputParser.getInputFromFile("input.txt");
 const ROW_LENGTH = inputLines[0].length;
-let skierPosition = 0;
 
-const getNewSkierPosition = () => {
-    skierPosition += 3;
+const skiRoutes = [
+  {
+    right: 1,
+    down: 1,
+  },
+  {
+    right: 3,
+    down: 1,
+  },
+  {
+    right: 5,
+    down: 1,
+  },
+  {
+    right: 7,
+    down: 1,
+  },
+  {
+    right: 1,
+    down: 2,
+  },
+];
+
+const skier = (right, down) => {
+  let skierPosition = 0;
+
+  const getNewSkierPosition = () => {
+    skierPosition += right;
 
     if (skierPosition >= ROW_LENGTH) {
-        skierPosition -= ROW_LENGTH;
+      skierPosition -= ROW_LENGTH;
     }
 
-    return skierPosition
-}
+    return skierPosition;
+  };
 
-const moveDown = (slopeRow) => {
-    slopeRow++;
-    getNewSkierPosition();
-}
+  const isTree = (line, position) => {
+    return line.split("")[position] === "#";
+  };
 
-const isTree = (line, position) => {
-    return line.split('')[position] === '#';
-}
-
-const ski = () => {
+  const ski = () => {
     let treeCount = 0;
 
-    inputLines.forEach((line) => {
-        if(isTree(line, skierPosition)) {
-            treeCount++;
-        }
-        moveDown(line);
-    });
+    for (let i = 0; i < inputLines.length; i += down) {
+      if (isTree(inputLines[i], skierPosition)) {
+        treeCount++;
+      }
+      getNewSkierPosition();
+    }
 
     return treeCount;
-}
+  };
 
-console.log(ski());
+  return {
+    ski,
+  };
+};
+
+let trees = [];
+
+skiRoutes.forEach((skiRoute) => {
+  const { right, down } = skiRoute;
+
+  trees.push(skier(right, down).ski());
+});
+
+console.log(trees.reduce((a, b) => a * b));
